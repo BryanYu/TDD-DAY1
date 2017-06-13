@@ -36,8 +36,9 @@
 
 以下是我Production Code的思考
 1. 這個案例是要依據傳入的筆數做分頁取值後計算加總，所以使用到LINQ的Skip、Take、Sum的方法
-2. 我將方法簽章設定泛型，
-3. 也有使用上課時所教的依賴反轉(IoC)技巧，將SumSelector實作ISelector介面
-
+2. 我將方法簽章設定泛型，將來這個api就可以給其他domain entity使用了
+3. 我將LINQ Sum的Func<T,int> 當成參數傳入，這樣就可以避免尋找的欄位不存在的問題
+4. 有使用上課時所教的依賴反轉(IoC)技巧，將SumSelector實作ISelector介面
+5. 針對1跟2額外增加不相等的測試案例，來驗證是否真正不相等
 
 
