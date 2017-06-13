@@ -36,8 +36,8 @@
 
 以下是我Production Code的思考
 1. 這個案例是要依據傳入的筆數做分頁取值後計算加總，所以使用到LINQ的Skip、Take、Sum的方法
-2. 我使用泛型方法，解決新增欄位問題、尋找不到欄位會拋出ArgumentException，且這個api之後也可以給其他Domain Entity使用
-3. 
+2. 我將方法簽章設定泛型，
+3. 也有使用上課時所教的依賴反轉(IoC)技巧，將SumSelector實作ISelector介面
 
 
 
