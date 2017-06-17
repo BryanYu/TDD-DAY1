@@ -28,18 +28,19 @@ namespace HomeWork.Tests
             new Product() {Id = 10,Cost = 10,Revenue =20,ShellPrice = 30 },
             new Product() {Id = 11,Cost = 11,Revenue =21,ShellPrice = 31 }
         };
-        private static ISelector _selector = new SumSelecter();
+        
 
         [TestMethod()]
         public void Input_Take_Zero_Shoud_Throw_Exception()
         {
             ///Arrange
+            var selector = GetSelector();
             var take = 0;
 
             ///Act
             Func<Product, int> func = (item) => item.Cost;
             Action act =
-                () => _selector.Get(take, _dummyProduct.ToList(), func);
+                () => selector.Get(take, _dummyProduct.ToList(), func);
             ///Assert
             act.ShouldThrow<ArgumentException>();
         }
@@ -49,10 +50,11 @@ namespace HomeWork.Tests
         {
             ///Arrange
             var take = -1;
+            var selector = GetSelector();
 
             ///Act
             Func<Product, int> func = (item) => item.Cost;
-            Action act = () => _selector.Get(take, _dummyProduct.ToList(), func);
+            Action act = () => selector.Get(take, _dummyProduct.ToList(), func);
 
             ///Assert
             act.ShouldThrow<ArgumentException>();
@@ -64,9 +66,10 @@ namespace HomeWork.Tests
             ///Arrange
             var take = 3;
             var expected = new List<int>() { 6, 15, 24, 21 };
-           
+            var selector = GetSelector();
+
             ///Act
-            var actual = _selector.Get(take, _dummyProduct, item => item.Cost);
+            var actual = selector.Get(take, _dummyProduct, item => item.Cost);
 
             ///Assert
             CollectionAssert.AreEquivalent(expected, actual);
@@ -79,9 +82,10 @@ namespace HomeWork.Tests
             ///Arrange
             var take = 3;
             var expected = new List<int>() { 6, 15, 24, 21, 5 };
+            var selector = GetSelector();
 
             ///Act
-            var actual = _selector.Get(take, _dummyProduct, item => item.Cost);
+            var actual = selector.Get(take, _dummyProduct, item => item.Cost);
 
             ///Assert
             CollectionAssert.AreNotEquivalent(expected, actual);
@@ -93,9 +97,10 @@ namespace HomeWork.Tests
             ///Arrange
             var take = 4;
             var expected = new List<int>() { 50, 66, 60 };
+            var selector = GetSelector();
 
             ///Act
-            var actual = _selector.Get(take, _dummyProduct, item => item.Revenue);
+            var actual = selector.Get(take, _dummyProduct, item => item.Revenue);
 
             ///Assert
             CollectionAssert.AreEquivalent(expected, actual);
@@ -108,14 +113,20 @@ namespace HomeWork.Tests
             ///Arrange
             var take = 4;
             var expected = new List<int>() { 1, 2, 3, 4 };
+            var selector = GetSelector();
 
             ///Act
-            var actual = _selector.Get(take, _dummyProduct, item => item.Revenue);
+            var actual = selector.Get(take, _dummyProduct, item => item.Revenue);
 
             ///Assert
             CollectionAssert.AreNotEquivalent(expected, actual);
 
 
+        }
+
+        private ISelector GetSelector()
+        {
+            return new SumSelecter();
         }
     }
 }
