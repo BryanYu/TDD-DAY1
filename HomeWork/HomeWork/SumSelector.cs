@@ -19,22 +19,26 @@ namespace HomeWork
         /// <param name="data">要取的資料</param>
         /// <param name="selector">要Sum的條件</param>
         /// <returns><see cref="List{Int32}"/></returns>
-        public List<int> Get<T>(int pageSize, List<T> data, Func<T, int> seletor)
+        public IEnumerable<int> Get<T>(int pageSize, IEnumerable<T> source, Func<T, int> seletor)
         {
             if (pageSize <= 0)
             {
                 throw new ArgumentException();
-            }
 
-            var count = GetPageCount(pageSize, data.Count());
+            }
+            var result = GetResult<T>(pageSize, source, seletor);
+            return result;
+        }
+
+        private IEnumerable<int> GetResult<T>(int pageSize, IEnumerable<T> source, Func<T, int> seletor)
+        {
+            var count = GetPageCount(pageSize, source.Count());
             var result = new List<int>();
-            
+
             for (var index = 0; index < count; index++)
             {
-                var sum = data.ToList().Skip(index * pageSize).Take(pageSize).Sum(seletor);
-                result.Add(sum);
+                yield return source.ToList().Skip(index * pageSize).Take(pageSize).Sum(seletor);
             }
-            return result;
 
         }
 

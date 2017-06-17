@@ -13,9 +13,9 @@ namespace HomeWork
         /// </summary>
         /// <typeparam name="T">泛型</typeparam>
         /// <param name="pageSize">要取幾筆</param>
-        /// <param name="data">要取的資料</param>
+        /// <param name="source">要取的資料</param>
         /// <param name="selector">要Sum的條件</param>
         /// <returns><see cref="List{Int32}"/></returns>
-        List<int> Get<T>(int pageSize, List<T> data, Func<T, int> selector);
+        IEnumerable<int> Get<T>(int pageSize, IEnumerable<T> source, Func<T, int> selector);
     }
 }

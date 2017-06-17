@@ -72,7 +72,7 @@ namespace HomeWork.Tests
             var actual = selector.Get(pageSize, _dummyProduct, item => item.Cost);
 
             ///Assert
-            CollectionAssert.AreEquivalent(expected, actual);
+            CollectionAssert.AreEquivalent(expected, actual.ToList());
 
         }
 
@@ -88,7 +88,7 @@ namespace HomeWork.Tests
             var actual = selector.Get(pageSize, _dummyProduct, item => item.Cost);
 
             ///Assert
-            CollectionAssert.AreNotEquivalent(expected, actual);
+            CollectionAssert.AreNotEquivalent(expected, actual.ToList());
 
         }
         [TestMethod()]
@@ -103,7 +103,7 @@ namespace HomeWork.Tests
             var actual = selector.Get(pageSize, _dummyProduct, item => item.Revenue);
 
             ///Assert
-            CollectionAssert.AreEquivalent(expected, actual);
+            CollectionAssert.AreEquivalent(expected, actual.ToList());
 
         }
 
@@ -119,7 +119,7 @@ namespace HomeWork.Tests
             var actual = selector.Get(pageSize, _dummyProduct, item => item.Revenue);
 
             ///Assert
-            CollectionAssert.AreNotEquivalent(expected, actual);
+            CollectionAssert.AreNotEqual(expected, actual.ToList());
 
 
         }
