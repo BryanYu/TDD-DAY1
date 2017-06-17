@@ -15,23 +15,23 @@ namespace HomeWork
         /// 取值
         /// </summary>
         /// <typeparam name="T">泛型</typeparam>
-        /// <param name="take">要取幾筆</param>
+        /// <param name="pageSize">要取幾筆</param>
         /// <param name="data">要取的資料</param>
         /// <param name="selector">要Sum的條件</param>
         /// <returns><see cref="List{Int32}"/></returns>
-        public List<int> Get<T>(int take, List<T> data, Func<T, int> seletor)
+        public List<int> Get<T>(int pageSize, List<T> data, Func<T, int> seletor)
         {
-            if (take <= 0)
+            if (pageSize <= 0)
             {
                 throw new ArgumentException();
             }
 
-            var count = GetPageCount(take, data.Count());
+            var count = GetPageCount(pageSize, data.Count());
             var result = new List<int>();
             
             for (var index = 0; index < count; index++)
             {
-                var sum = data.ToList().Skip(index * take).Take(take).Sum(seletor);
+                var sum = data.ToList().Skip(index * pageSize).Take(pageSize).Sum(seletor);
                 result.Add(sum);
             }
             return result;
@@ -41,13 +41,13 @@ namespace HomeWork
         /// <summary>
         /// 取得頁數
         /// </summary>
-        /// <param name="take">要取幾筆</param>
+        /// <param name="pageSize">要取幾筆</param>
         /// <param name="dataCount">資料筆數</param>
         /// <returns></returns>
-        private int GetPageCount(int take, int dataCount)
+        private int GetPageCount(int pageSize, int dataCount)
         {
-            var temp = dataCount % take;
-            var result = dataCount / take;
+            var temp = dataCount % pageSize;
+            var result = dataCount / pageSize;
             if (temp != 0)
             {
                 result = result + 1;

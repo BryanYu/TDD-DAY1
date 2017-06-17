@@ -31,45 +31,45 @@ namespace HomeWork.Tests
         
 
         [TestMethod()]
-        public void Input_Take_Zero_Shoud_Throw_Exception()
+        public void Input_PageSize_Zero_Shoud_Throw_Exception()
         {
             ///Arrange
             var selector = GetSelector();
-            var take = 0;
+            var pageSize = 0;
 
             ///Act
             Func<Product, int> func = (item) => item.Cost;
             Action act =
-                () => selector.Get(take, _dummyProduct.ToList(), func);
+                () => selector.Get(pageSize, _dummyProduct.ToList(), func);
             ///Assert
             act.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod()]
-        public void Input_Take_Negative_Number_Should_Throw_Exception()
+        public void Input_PageSize_Negative_Number_Should_Throw_Exception()
         {
             ///Arrange
-            var take = -1;
+            var pageSize = -1;
             var selector = GetSelector();
 
             ///Act
             Func<Product, int> func = (item) => item.Cost;
-            Action act = () => selector.Get(take, _dummyProduct.ToList(), func);
+            Action act = () => selector.Get(pageSize, _dummyProduct.ToList(), func);
 
             ///Assert
             act.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod()]
-        public void Input_Take_Is_3_And_Data_Should_Return_SumBy3_Total()
+        public void Input_PageSize_Is_3_And_Data_Should_Return_SumBy3_Total()
         {
             ///Arrange
-            var take = 3;
+            var pageSize = 3;
             var expected = new List<int>() { 6, 15, 24, 21 };
             var selector = GetSelector();
 
             ///Act
-            var actual = selector.Get(take, _dummyProduct, item => item.Cost);
+            var actual = selector.Get(pageSize, _dummyProduct, item => item.Cost);
 
             ///Assert
             CollectionAssert.AreEquivalent(expected, actual);
@@ -77,30 +77,30 @@ namespace HomeWork.Tests
         }
 
         [TestMethod()]
-        public void Input_Take_Is_3_And_Data_Should_Not_Return_SumBy3_Total()
+        public void Input_PageSize_Is_3_And_Data_Should_Not_Return_SumBy3_Total()
         {
             ///Arrange
-            var take = 3;
+            var pageSize = 3;
             var expected = new List<int>() { 6, 15, 24, 21, 5 };
             var selector = GetSelector();
 
             ///Act
-            var actual = selector.Get(take, _dummyProduct, item => item.Cost);
+            var actual = selector.Get(pageSize, _dummyProduct, item => item.Cost);
 
             ///Assert
             CollectionAssert.AreNotEquivalent(expected, actual);
 
         }
         [TestMethod()]
-        public void Input_Take_Is_4_And_Data_Should_Return_SumBy4_Total()
+        public void Input_PageSize_Is_4_And_Data_Should_Return_SumBy4_Total()
         {
             ///Arrange
-            var take = 4;
+            var pageSize = 4;
             var expected = new List<int>() { 50, 66, 60 };
             var selector = GetSelector();
 
             ///Act
-            var actual = selector.Get(take, _dummyProduct, item => item.Revenue);
+            var actual = selector.Get(pageSize, _dummyProduct, item => item.Revenue);
 
             ///Assert
             CollectionAssert.AreEquivalent(expected, actual);
@@ -108,15 +108,15 @@ namespace HomeWork.Tests
         }
 
         [TestMethod]
-        public void Input_Take_Is4_And_Data_Should_Not_Return_SumBy4_Total()
+        public void Input_PageSize_Is4_And_Data_Should_Not_Return_SumBy4_Total()
         {
             ///Arrange
-            var take = 4;
+            var pageSize = 4;
             var expected = new List<int>() { 1, 2, 3, 4 };
             var selector = GetSelector();
 
             ///Act
-            var actual = selector.Get(take, _dummyProduct, item => item.Revenue);
+            var actual = selector.Get(pageSize, _dummyProduct, item => item.Revenue);
 
             ///Assert
             CollectionAssert.AreNotEquivalent(expected, actual);
